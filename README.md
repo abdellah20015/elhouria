@@ -7,7 +7,7 @@ Un site des véhicules pour différent type de client développé avec Drupal 10
 ## 🛠️ Technologies
 
 - **CMS** : Drupal 10/11
-- **Thème** : Thème personnalisé "Pettys Theme"
+- **Thème** : Thème personnalisé "elhouria Theme"
 - **Icons** : Bootstrap Icons
 - **PHP** : 8.1+
 - **Base de données** : MySQL/MariaDB
@@ -27,7 +27,7 @@ Un site des véhicules pour différent type de client développé avec Drupal 10
 
 ## 🎨 Fonctionnalités du thème
 
-Le thème Pettys Theme inclut les régions suivantes :
+Le thème elhouria Theme inclut les régions suivantes :
 
 - **header** : Barre supérieure
 - **Top content** : haut contenu
@@ -48,7 +48,7 @@ Le thème Pettys Theme inclut les régions suivantes :
 
 1. **Cloner le repository**
    ```bash
-   git clone https://github.com/votre-username/pettys-drupal.git
+   git clone https://github.com/votre-username/elhouria.git
    cd pettys-drupal
    ```
 
@@ -70,8 +70,8 @@ Le thème Pettys Theme inclut les régions suivantes :
 
 5. **Activer le thème**
    ```bash
-   ../vendor/bin/drush theme:enable pettys_theme
-   ../vendor/bin/drush config:set system.theme default pettys_theme
+   ../vendor/bin/drush theme:enable elhouria
+   ../vendor/bin/drush config:set system.theme default elhouria
    ```
 
 ## 🔧 Configuration
@@ -86,7 +86,6 @@ chmod 755 web/sites/default/files
 ### Configuration recommandée
 
 1. **Modules essentiels à activer** :
-   - Commerce (pour e-commerce)
    - Views
    - Pathauto
    - Token
