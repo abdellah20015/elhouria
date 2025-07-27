@@ -1,0 +1,29 @@
+uuid: 1d5a4a11-69e4-43ec-87e7-d28d51261890
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_logo_marque
+    - media.type.image
+    - taxonomy.vocabulary.marque
+id: taxonomy_term.marque.field_logo_marque
+field_name: field_logo_marque
+entity_type: taxonomy_term
+bundle: marque
+label: 'Logo de la marque'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,38 @@
+uuid: 9830a2e9-e12f-4621-9c9b-76b9e45cc8a6
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.mon_compte
+    - field.field.block_content.mon_compte.field_lien_compte
+  module:
+    - link
+id: block_content.mon_compte.default
+targetEntityType: block_content
+bundle: mon_compte
+mode: default
+content:
+  field_lien_compte:
+    type: link_default
+    weight: 26
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden: {  }

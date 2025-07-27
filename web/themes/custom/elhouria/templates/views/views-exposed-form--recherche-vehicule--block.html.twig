@@ -1,0 +1,189 @@
+{#
+/**
+ * @file
+ * Template pour le formulaire exposé du block de recherche véhicules
+ */
+#}
+
+<form{{ attributes.addClass('views-exposed-form') }} id="views-exposed-form-{{ view.id|clean_class }}-{{ view.current_display|clean_class }}" action="" method="GET">
+
+  <div class="colTypeClient">
+    <div class="boxTypeClient">
+      <span class="labelTypeClient">Vous êtes</span>
+      {% if form.field_type_client_target_id and form.field_type_client_target_id['#options'] %}
+        {% for key, option in form.field_type_client_target_id['#options'] %}
+          {% if key != '' and key != 'All' %}
+            <label class="radioLabel">{{ option }}
+              <input type="radio" name="field_type_client_target_id" value="{{ key }}" {{ key == form.field_type_client_target_id['#default_value'] ? 'checked="checked"' : '' }}>
+              <span class="checkmark"></span>
+            </label>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="mobile-select" style="display: none;">
+      <select class="formSelect" name="field_type_client_target_id">
+        <option value="">vous êtes</option>
+        {% if form.field_type_client_target_id and form.field_type_client_target_id['#options'] %}
+          {% for key, option in form.field_type_client_target_id['#options'] %}
+            {% if key != '' and key != 'All' %}
+              <option value="{{ key }}">{{ option }}</option>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </select>
+    </div>
+  </div>
+
+  <div class="colBudget">
+    <div class="rangeBudget">
+      <p>par Budget mensuel</p>
+      <div id="slider-range"></div>
+      <div class="vlues">
+        {% set filter_config = view.filter['field_prix_mensuel_value'] %}
+        {% set min_value = filter_config.value.min is defined ? filter_config.value.min : (form.field_prix_mensuel_value.min['#default_value'] ? form.field_prix_mensuel_value.min['#default_value'] : 0) %}
+        {% set max_value = filter_config.value.max is defined ? filter_config.value.max : (form.field_prix_mensuel_value.max['#default_value'] ? form.field_prix_mensuel_value.max['#default_value'] : 500) %}
+
+        {% if min_value == 0 and form.field_prix_mensuel_value.min['#attributes']['placeholder'] %}
+          {% set min_value = form.field_prix_mensuel_value.min['#attributes']['placeholder'] %}
+        {% endif %}
+        {% if max_value == 1000 and form.field_prix_mensuel_value.max['#attributes']['placeholder'] %}
+          {% set max_value = form.field_prix_mensuel_value.max['#attributes']['placeholder'] %}
+        {% endif %}
+
+        <input type="text" id="minValue" value="{{ min_value }}" readonly>
+        <input type="text" id="maxValue" value="{{ max_value }}" readonly>
+
+        <input type="hidden" name="field_prix_mensuel_value[min]" id="budget-min" value="{{ min_value }}">
+        <input type="hidden" name="field_prix_mensuel_value[max]" id="budget-max" value="{{ max_value }}">
+
+        <div id="price-range-config"
+             data-min="{{ min_value }}"
+             data-max="{{ max_value }}"
+             style="display: none;">
+        </div>
+      </div>
+    </div>
+    <div class="btn-submit">
+      <input type="submit" value="" class="form-submit" onclick="redirectToSearch(event)">
+    </div>
+  </div>
+
+  <div class="colTypeVehicule">
+    {% if form.field_type_vehicule_target_id %}
+      <select class="formSelect" name="field_type_vehicule_target_id">
+        <option value="">par type de vehicule</option>
+        {% for key, option in form.field_type_vehicule_target_id['#options'] %}
+          {% if key != '' and key != 'All' %}
+            <option value="{{ key }}">{{ option }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    {% endif %}
+    <a class="moreOption" href="#" id="toggle-advanced-search">Recherche avancée</a>
+  </div>
+
+  <div class="blocMoreOptions" id="advanced-options" style="display: none;">
+    <div class="innerMoreOption">
+      <div class="colMarqueVehicule">
+        {% if form.field_marque_target_id %}
+          <select class="formSelect" name="field_marque_target_id">
+            <option value="">marque</option>
+            {% for key, option in form.field_marque_target_id['#options'] %}
+              {% if key != '' and key != 'All' %}
+                <option value="{{ key }}">{{ option }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        {% endif %}
+      </div>
+      <div class="colMarqueModele">
+        {% if form.field_modele_target_id %}
+          <select class="formSelect" name="field_modele_target_id">
+            <option value="">modèle</option>
+            {% for key, option in form.field_modele_target_id['#options'] %}
+              {% if key != '' and key != 'All' %}
+                <option value="{{ key }}">{{ option }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        {% endif %}
+      </div>
+      <div class="colMarqueCarburant">
+        {% if form.field_carburant_target_id %}
+          <select class="formSelect" name="field_carburant_target_id">
+            <option value="">carburant</option>
+            {% for key, option in form.field_carburant_target_id['#options'] %}
+              {% if key != '' and key != 'All' %}
+                <option value="{{ key }}">{{ option }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        {% endif %}
+      </div>
+      <div class="rowAction">
+        <input type="submit" value="lancer la recherche" class="form-submit" onclick="redirectToSearch(event)">
+        <a class="closeSearche" href="#" id="close-advanced-search">Fermer la recherche avancée</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: none;">
+    {{ form|without('field_type_client_target_id', 'field_type_vehicule_target_id', 'field_marque_target_id', 'field_modele_target_id', 'field_carburant_target_id', 'actions') }}
+  </div>
+
+</form>
+
+<script>
+function redirectToSearch(event) {
+  event.preventDefault();
+
+  // Récupérer les valeurs du formulaire
+  const form = event.target.form;
+  const params = new URLSearchParams();
+
+  // Type client (radio buttons)
+  const typeClient = form.querySelector('input[name="field_type_client_target_id"]:checked');
+  if (typeClient && typeClient.value) {
+    params.append('field_type_client_target_id', typeClient.value);
+  }
+
+  // Budget mensuel
+  const budgetMin = form.querySelector('#budget-min');
+  const budgetMax = form.querySelector('#budget-max');
+  if (budgetMin && budgetMin.value) {
+    params.append('field_prix_mensuel_value[min]', budgetMin.value);
+  }
+  if (budgetMax && budgetMax.value) {
+    params.append('field_prix_mensuel_value[max]', budgetMax.value);
+  }
+
+  // Type de véhicule
+  const typeVehicule = form.querySelector('select[name="field_type_vehicule_target_id"]');
+  if (typeVehicule && typeVehicule.value) {
+    params.append('field_type_vehicule_target_id', typeVehicule.value);
+  }
+
+  // Marque
+  const marque = form.querySelector('select[name="field_marque_target_id"]');
+  if (marque && marque.value) {
+    params.append('field_marque_target_id', marque.value);
+  }
+
+  // Modèle
+  const modele = form.querySelector('select[name="field_modele_target_id"]');
+  if (modele && modele.value) {
+    params.append('field_modele_target_id', modele.value);
+  }
+
+  // Carburant
+  const carburant = form.querySelector('select[name="field_carburant_target_id"]');
+  if (carburant && carburant.value) {
+    params.append('field_carburant_target_id', carburant.value);
+  }
+
+  // Redirection vers la page de recherche avec les paramètres
+  const url = '/recherche-vehicule' + (params.toString() ? '?' + params.toString() : '');
+  window.location.href = url;
+}
+</script>

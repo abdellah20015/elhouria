@@ -1,0 +1,154 @@
+{#
+/**
+ * @file
+ * Template pour l'affichage d'un véhicule individuel (node--vehicule.html.twig)
+ * Structure HTML statique avec contenu dynamique
+ */
+#}
+<main id="main" role="main">
+  <div class="introPage">
+    <div class="container">
+      <div class="row">
+        <span>
+          <img src="{{ marque_logo }}" alt="{{ marque_logo_alt|default('') }}">
+        </span>
+        <h1>{{ node.title.value }}</h1>
+        <p>{{ type_vehicule }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slideVehicule">
+    <div class="container">
+      <div class="listVehicule">
+        {% for image in images %}
+          <div class="itemVehicule">
+            <img src="{{ image.url }}" alt="{{ image.alt|default('') }}">
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="detailInfosVehicule" id="plus-detail">
+    <div class="infosMotor">
+      <div class="boxInfoMotos">
+        <div class="colInfosMotor">
+          <p>Boite de vitesse</p>
+          <span>{{ boite_vitesse }}</span>
+        </div>
+        <div class="colInfosMotor">
+          <p>Motricité</p>
+          <span>{{ motricite }}</span>
+        </div>
+        <div class="colInfosMotor">
+          <p>Motorisation</p>
+          <span>{{ carburant }}</span>
+        </div>
+        <div class="colInfosMotor">
+          <p>Puissance</p>
+          <span>{{ puissance }} CV</span>
+        </div>
+        <div class="prix-devis">
+          <div class="prixVehicule">
+            <span class="empty">{{ prix }}</span>
+            <span class="mdh">à partir de<br />Dhs ttc/mois</span>
+          </div>
+          <a class="linkDemandeDevis" href="#demande-devis">demander un devis</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="infosTechniqueVehicule">
+      <div class="tabsInfoTech">
+        <div class="boxRub">
+          {% for tab in caracteristiques_tabs %}
+            <a class="rubTech{% if loop.first %} active{% endif %}" href="#boxinfos-{{ loop.index0}}">{{ tab.label }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="wrraperTech">
+        {% for tab in caracteristiques_tabs %}
+          <div class="boxInfos" id="boxinfos-{{ loop.index0 }}">
+            <div class="boxInfosTech">
+              {% for char in tab.items %}
+                <div class="colInfosTech">
+                  <p>{{ char.label }}</p>
+                  <span>{{ char.valeur }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="formContact formDevis" id="demande-devis">
+      <div class="titleForm">
+        <h2>Demander un devis pour ce véhicule</h2>
+        <p>Devis gratuit et sans engagement</p>
+      </div>
+      <div class="introForm">
+        <p>La mensualité du véhicule souhaité n'est pas disponible en ligne. </p>
+        <p>Merci de compléter le formulaire, nous vous transmettrons notre offre dans les plus brefs délais.</p>
+      </div>
+      <form action="{{ form_action}}" method="post">
+        <div class="colForm">
+          <label for="nom">Nom<span>*</span></label>
+          <input type="text" name="nom" id="nom" required>
+        </div>
+        <div class="colForm">
+          <label for="prenom">Prénom<span>*</span></label>
+          <input type="text" name="prenom" id="prenom" required>
+        </div>
+        <div class="colForm">
+          <label for="email">email<span>*</span></label>
+          <input type="email" name="email" id="email" required>
+        </div>
+        <div class="colForm">
+          <label for="societe">Société</label>
+          <input type="text" name="societe" id="societe">
+        </div>
+        <div class="colForm">
+          <label for="formule">formule<span>*</span></label>
+          <select class="formSelect" name="formule" id="formule" required>
+            <option value="">-</option>
+            {% for option in formule_options %}
+              <option value="{{ option.tid }}">{{ option.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="colForm">
+          <label for="modele">Modèle<span>*</span></label>
+          <select class="formSelect" name="modele" id="modele" required>
+            <option value="">-</option>
+            {% for option in modele_options %}
+              <option value="{{ option.tid }}" {% if option.tid == modele.tid %}selected{% endif %}>{{ option.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="colForm">
+          <label for="version">version<span>*</span></label>
+          <select class="formSelect" name="version" id="version" required>
+            <option value="">-</option>
+            {% for option in version_options %}
+              <option value="{{ option.tid }}">{{ option.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="colForm2">
+          <label for="commentaire">commentaire</label>
+          <textarea name="commentaire" id="commentaire"></textarea>
+        </div>
+        {% if node.id %}
+          <input type="hidden" name="vehicle_id" value="{{ node.id }}">
+        {% endif %}
+        <input type="hidden" name="form_id" value="devis_form">
+        <div class="rowAction">
+          <input type="submit" value="Envoyer ma demande">
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

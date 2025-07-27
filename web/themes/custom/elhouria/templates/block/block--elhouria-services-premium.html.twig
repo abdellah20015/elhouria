@@ -1,0 +1,29 @@
+<div class="services">
+  {% if content.field_titre_principal %}
+    <h2><span>{{ content.field_titre_principal|render|striptags|trim }}</span></h2>
+  {% endif %}
+
+  {% if content.field_services_subtitle %}
+    <h3>{{ content.field_services_subtitle|render|striptags|trim }}</h3>
+  {% endif %}
+
+  {% if content.field_services_items %}
+    <div class="boxlistservices">
+      <div class="listServices">
+        {% for item in content.field_services_items['#items'] %}
+          {{ content.field_services_items[loop.index0] }}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if content.field_service_links %}
+    <div class="boxlinksServices">
+      <div class="linksServices">
+        {% for item in content.field_service_links['#items'] %}
+          {{ content.field_service_links[loop.index0] }}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>

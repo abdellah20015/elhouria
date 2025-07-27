@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Template spécifique pour la page Services.
+ */
+#}
+
+{# Forcer le titre de la page #}
+{% set page_title = 'Services' %}
+
+{# Header #}
+{% if page.header %}
+  {{ page.header }}
+{% endif %}
+
+{# Contenu principal - Services #}
+<div class="main-content">
+  <div class="introPageIntern">
+    <div class="container">
+      <div class="row">
+        <h1>Services</h1>
+      </div>
+    </div>
+  </div>
+
+
+{# Bottom Content #}
+{% if page.bottom_content %}
+  {{ page.bottom_content }}
+{% endif %}
+
+{# Footer #}
+{% if page.footer %}
+  {{ page.footer }}
+{% endif %}
+
+{# JavaScript pour changer le titre de la page #}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.title = 'Services - {{ site_name|default('Elhouria') }}';
+});
+</script>

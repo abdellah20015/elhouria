@@ -1,0 +1,15 @@
+name: El Hourria Theme
+type: theme
+description: A custom Drupal theme for El Hourria vehicle rental website
+core_version_requirement: ^10 || ^12
+base theme: false
+screenshot: image.png
+logo: logo.svg
+libraries:
+  - elhouria/global-styling
+regions:
+  header: Header
+  top_content: Top Content
+  content: Content
+  bottom_content: Bottom Content
+  footer: Footer

@@ -1,0 +1,78 @@
+{#
+/**
+ * @file
+ * Template spécifique pour la page À propos (node/4)
+ */
+#}
+
+{# Header #}
+{% if page.header %}
+  {{ page.header }}
+{% endif %}
+
+{# Contenu principal - À propos #}
+<div class="main-content">
+  <div class="introPageSimple">
+    <div class="container">
+      <div class="row">
+        {% if about_title %}
+          <h1>{{ about_title }}</h1>
+        {% else %}
+          <h1>{{ node.title.value }}</h1>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="a-propos">
+    <div class="container">
+      <div class="row">
+        {# Image à propos #}
+        <div class="visu-apropos">
+          {% if about_image and about_image.url %}
+            {% set image_path = about_image.url %}
+            {% if 'sites/default/files/' in image_path %}
+              {% set image_path = image_path|replace({'http://elhouria.local/sites/default/files/': '/sites/default/files/'}) %}
+              {% set image_path = image_path|replace({'https://elhouria.local/sites/default/files/': '/sites/default/files/'}) %}
+            {% endif %}
+            <img src="{{ image_path }}"
+                 alt="{{ about_image.alt|default('Image à propos') }}"
+                 loading="lazy">
+          {% endif %}
+        </div>
+
+        {# Contenu texte à propos #}
+        <div class="c-apropos">
+          {% if about_description and about_description|length > 0 %}
+            {% for paragraph in about_description %}
+              {% if paragraph.text %}
+                {% if paragraph.is_first %}
+                  <p class="ntb">{{ paragraph.text|nl2br }}</p>
+                {% else %}
+                  <p>{{ paragraph.text|nl2br }}</p>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            {# Fallback si les données processées ne sont pas disponibles #}
+            {% if node.field_description.value %}
+              <div class="description-fallback">
+                {{ node.field_description.value|nl2br }}
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Bottom Content #}
+{% if page.bottom_content %}
+  {{ page.bottom_content }}
+{% endif %}
+
+{# Footer #}
+{% if page.footer %}
+  {{ page.footer }}
+{% endif %}

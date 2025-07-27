@@ -1,0 +1,25 @@
+uuid: 8d2b313d-bb2e-408e-a6c5-6be0898666b3
+langcode: fr
+status: true
+dependencies:
+  config:
+    - system.menu.menu-mobile
+  module:
+    - system
+  theme:
+    - elhouria
+id: elhouria_menumobile
+theme: elhouria
+region: header
+weight: 0
+provider: null
+plugin: 'system_menu_block:menu-mobile'
+settings:
+  id: 'system_menu_block:menu-mobile'
+  label: 'Menu mobile'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

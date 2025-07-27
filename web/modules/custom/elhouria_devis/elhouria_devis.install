@@ -1,0 +1,156 @@
+<?php
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+
+function elhouria_devis_install() {
+  // Créer la table elhouria_devis si elle n'existe pas
+  $database = \Drupal::database();
+  if (!$database->schema()->tableExists('elhouria_devis')) {
+    $schema = [
+      'description' => 'Stores vehicle quote requests.',
+      'fields' => [
+        'id' => [
+          'type' => 'serial',
+          'not null' => TRUE,
+          'description' => 'Primary Key: Unique quote ID.',
+        ],
+        'uid' => [
+          'type' => 'int',
+          'not null' => TRUE,
+          'description' => 'User ID of the requester.',
+        ],
+        'nid' => [
+          'type' => 'int',
+          'not null' => TRUE,
+          'description' => 'Node ID of the vehicle.',
+        ],
+        'nom' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'description' => 'Nom of the requester.',
+        ],
+        'prenom' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'description' => 'Prénom of the requester.',
+        ],
+        'email' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'description' => 'Email of the requester.',
+        ],
+        'societe' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+          'description' => 'Société of the requester.',
+        ],
+        'formule' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'description' => 'Selected formule.',
+        ],
+        'modele' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'description' => 'Selected modèle.',
+        ],
+        'version' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'description' => 'Selected version.',
+        ],
+        'commentaire' => [
+          'type' => 'text',
+          'not null' => FALSE,
+          'description' => 'Commentaire from the requester.',
+        ],
+        'created' => [
+          'type' => 'int',
+          'not null' => TRUE,
+          'description' => 'Timestamp of the request.',
+        ],
+      ],
+      'primary key' => ['id'],
+      'indexes' => [
+        'uid' => ['uid'],
+        'nid' => ['nid'],
+      ],
+    ];
+    $database->schema()->createTable('elhouria_devis', $schema);
+  }
+
+  // Ajouter un champ de référence média pour le type de contenu Véhicule
+  $field_name = 'field_documents';
+  if (!FieldStorageConfig::loadByName('node', $field_name)) {
+    FieldStorageConfig::create([
+      'field_name' => $field_name,
+      'entity_type' => 'node',
+      'type' => 'entity_reference',
+      'settings' => [
+        'target_type' => 'media',
+      ],
+      'cardinality' => -1, // Autoriser plusieurs médias
+    ])->save();
+  }
+
+  if (!FieldConfig::loadByName('node', 'vehicule', $field_name)) {
+    FieldConfig::create([
+      'field_name' => $field_name,
+      'entity_type' => 'node',
+      'bundle' => 'vehicule',
+      'label' => 'Documents',
+      'description' => 'Téléchargez les documents liés à ce véhicule (PDF, DOC, DOCX).',
+      'required' => FALSE,
+      'settings' => [
+        'handler' => 'default:media',
+        'handler_settings' => [
+          'target_bundles' => ['document' => 'document'],
+        ],
+      ],
+    ])->save();
+
+    // Configurer l'affichage du formulaire
+    \Drupal::service('entity_form_display')->load('node.vehicule.default')
+      ->setComponent($field_name, [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 20,
+      ])
+      ->save();
+
+    // Configurer l'affichage de la vue
+    \Drupal::service('entity_display')->load('node.vehicule.default')
+      ->setComponent($field_name, [
+        'type' => 'entity_reference_label',
+        'weight' => 20,
+      ])
+      ->save();
+  }
+
+  // Journaliser pour confirmer
+  \Drupal::logger('elhouria_devis')->notice('Champ field_documents (référence média) ajouté au type de contenu Véhicule.');
+}
+
+function elhouria_devis_uninstall() {
+  // Supprimer la table elhouria_devis
+  \Drupal::database()->schema()->dropTable('elhouria_devis');
+
+  // Supprimer le champ de référence média
+  $field_name = 'field_documents';
+  if ($field_config = FieldConfig::loadByName('node', 'vehicule', $field_name)) {
+    $field_config->delete();
+  }
+  if ($field_storage = FieldStorageConfig::loadByName('node', $field_name)) {
+    $field_storage->delete();
+  }
+
+  // Journaliser pour confirmer
+  \Drupal::logger('elhouria_devis')->notice('Champ field_documents supprimé du type de contenu Véhicule.');
+}

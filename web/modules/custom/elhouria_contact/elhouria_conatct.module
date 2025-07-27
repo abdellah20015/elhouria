@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Module El Hourria Contact.
+ */
+
+use Drupal\Core\Render\Markup;
+
+/**
+ * Implements hook_mail().
+ */
+function elhouria_contact_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'contact_form':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = 'Nouveau message de contact - El Hourria';
+
+      $body = "Nouveau message de contact reçu :\n\n";
+      $body .= "Nom : " . $params['nom'] . "\n";
+      $body .= "Prénom : " . $params['prenom'] . "\n";
+      $body .= "Email : " . $params['email'] . "\n";
+      $body .= "Téléphone : " . $params['telephone'] . "\n";
+      $body .= "Message : \n" . $params['message'] . "\n";
+
+      $message['body'][] = Markup::create($body);
+      break;
+  }
+}

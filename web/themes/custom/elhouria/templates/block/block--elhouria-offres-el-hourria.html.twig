@@ -1,0 +1,75 @@
+{% if content %}
+<div class="offres">
+  {% if content.field_titre_principal %}
+    <h2><span>{{ content.field_titre_principal|render|striptags }}</span></h2>
+  {% endif %}
+
+  <div class="container">
+    <div class="row">
+      <div class="videoOffres">
+        <div class="video">
+          <div class="image">
+            <div class="image-video">
+              <div class="play-iframe"></div>
+              {% if content.field_video_image %}
+                {% set video_image_url = file_url(content.field_video_image['#items'].entity.field_media_image.entity.uri.value) %}
+                <img src="{{ video_image_url }}" alt="">
+              {% endif %}
+            </div>
+            {% if content.field_video_url %}
+              <div class="video-iframe" data-src="{{ content.field_video_url.0['#url'] }}"></div>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if content.field_options_video %}
+        <div class="listOptionVideo">
+          {% for option in content.field_options_video['#items'] %}
+            {% set paragraph = option.entity %}
+            <div class="itemOptionVideo">
+              {% if paragraph.field_icon.entity %}
+              <div class="visuOptionVideo">
+                {% set icon_url = file_url(paragraph.field_icon.entity.field_media_image.entity.uri.value) %}
+                <img src="{{ icon_url }}" alt="">
+              </div>
+              {% endif %}
+              {% if paragraph.field_description.value %}
+              <div class="descOptionVideo">
+                {{ paragraph.field_description.value|raw }}
+              </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if content.field_etapes_processus %}
+  <div class="container contentListemoreOption hiddenElement">
+    <div class="row listeMoreOption">
+      {% for etape in content.field_etapes_processus['#items'] %}
+        {% set paragraph = etape.entity %}
+        <div class="itemMoreOtion col-md-6">
+          {% if paragraph.field_icon.entity %}
+          <div class="visuMoreOption">
+            {% set icon_url = file_url(paragraph.field_icon.entity.field_media_image.entity.uri.value) %}
+            <img src="{{ icon_url }}" alt="">
+          </div>
+          {% endif %}
+          <div class="descMoreOption">
+            {% if paragraph.field_titre.value %}
+            <h3>{{ paragraph.field_titre.value|raw }}</h3>
+            {% endif %}
+            {% if paragraph.field_description.value %}
+            <p>{{ paragraph.field_description.value|raw }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endif %}

@@ -1,0 +1,24 @@
+uuid: 25fdf598-deac-4708-a98d-a20be7e77604
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_services_inclus
+    - filter.format.full_html
+    - node.type.vehicule
+  module:
+    - text
+id: node.vehicule.field_services_inclus
+field_name: field_services_inclus
+entity_type: node
+bundle: vehicule
+label: 'Services inclus'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long

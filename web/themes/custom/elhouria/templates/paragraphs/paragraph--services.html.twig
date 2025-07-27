@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Template pour le paragraph Services - Structure identique au HTML statique
+ */
+#}
+<div class="colOption">
+  <div class="iconOption">
+    {% if content.field_image_service.0 %}
+      {% set image_url = file_url(paragraph.field_image_service.entity.field_media_image.entity.uri.value) %}
+      <img src="{{ image_url }}" alt="">
+    {% endif %}
+  </div>
+  <div class="listOption">
+    <h4>
+      {% if content.field_titre_service.0 %}
+        {{ content.field_titre_service }}
+      {% else %}
+        {{ paragraph.label }}
+      {% endif %}
+    </h4>
+    {{ content.field_description_service }}
+  </div>
+</div>

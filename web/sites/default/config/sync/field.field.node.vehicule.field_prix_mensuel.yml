@@ -1,0 +1,23 @@
+uuid: 418807de-ce73-4859-9c86-757624774c19
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_prix_mensuel
+    - node.type.vehicule
+id: node.vehicule.field_prix_mensuel
+field_name: field_prix_mensuel
+entity_type: node
+bundle: vehicule
+label: 'Prix mensuel'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 75.0
+  max: 3000.0
+  prefix: 'à partir de'
+  suffix: 'Dhs TTC/mois'
+field_type: decimal

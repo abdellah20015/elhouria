@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Template pour le paragraphe Service Item.
+ */
+#}
+
+<div class="itemService">
+	{% if content.field_icon %}
+		<div class="visuService">{{ content.field_icon }}</div>
+	{% endif %}
+	<div class="descService">
+		{% if content.field_description %}
+			{{ content.field_description }}
+		{% endif %}
+	</div>
+</div>

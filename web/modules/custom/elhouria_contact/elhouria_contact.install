@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Installation du module de contact El Hourria.
+ */
+
+use Drupal\node\Entity\Node;
+use Drupal\pathauto\PathautoState;
+
+/**
+ * Implements hook_install().
+ */
+function elhouria_contact_install() {
+  // Créer une page de contact si elle n'existe pas
+  $existing_contact = \Drupal::entityQuery('node')
+    ->condition('type', 'page')
+    ->condition('title', 'Contact')
+    ->accessCheck(FALSE)
+    ->execute();
+
+  if (empty($existing_contact)) {
+    $contact_node = Node::create([
+      'type' => 'page',
+      'title' => 'Contact',
+      'body' => [
+        'value' => '<p>Page de contact El Hourria</p>',
+        'format' => 'basic_html',
+      ],
+      'status' => 1,
+      'path' => [
+        'alias' => '/contact',
+        'pathauto' => PathautoState::SKIP,
+      ],
+    ]);
+    $contact_node->save();
+
+    \Drupal::messenger()->addMessage('Page de contact créée avec succès à l\'adresse /contact');
+  }
+}

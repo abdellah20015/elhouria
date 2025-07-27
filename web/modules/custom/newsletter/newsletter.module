@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function newsletter_theme() {
+  return [
+    'form__newsletter_subscription_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}

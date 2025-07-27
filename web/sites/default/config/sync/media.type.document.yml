@@ -1,0 +1,16 @@
+uuid: 95cde699-c3e0-4645-a4d7-48f3fb5e72bc
+langcode: fr
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: _D9q3XSnP6ik9we9UuoTvZsQKPuYNp_G9PfwVtWzgnQ
+id: document
+label: Document
+description: "Un fichier ou un document téléversé, tel qu'un PDF."
+source: file
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_media_document
+field_map:
+  name: name

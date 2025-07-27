@@ -1,0 +1,71 @@
+<header class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="navigation">
+
+          {# Logo - seulement l'image #}
+          <div class="logo">
+            <a href="/">
+              <img src="{{ logo_url }}" alt="{{ site_name }}">
+            </a>
+          </div>
+
+          {# Bouton menu mobile #}
+          <div class="btn-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          {# Bouton connexion desktop #}
+          <a class="btn-connection" href="{{ connection_link }}">
+            <span>{{ connection_text }}</span>
+          </a>
+
+          <div class="contentMenu">
+
+            {# Logo mobile #}
+            <a class="logoMobile" href="/">
+              <img src="{{logo_mobile}}" alt="El Hourria Logo">
+            </a>
+
+            {# Menu principal avec classe nav #}
+            {% if main_menu %}
+              {% set menu_items = main_menu['#items'] %}
+              <ul class="nav">
+                {% for item in menu_items %}
+                  <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+            {# Liens menu mobile dynamiques #}
+            <div class="linkMenuMobile">
+                {% set mobile_items = mobile_menu['#items'] %}
+                {% for item in mobile_items %}
+                  <a href="{{ item.url }}" title="{{ item.title }}">{{ item.title }}</a>
+                {% endfor %}
+            </div>
+
+            {# Newsletter #}
+            <div class="newslettre">
+              <p>Inscription à la newsletter</p>
+              {{ newsletter_form|raw }}
+            </div>
+
+            {# Connexion mobile #}
+            <div class="connexion">
+              {% if is_authenticated %}
+                <a href="{{ user_account_link }}">{{ user_name }}</a>
+              {% else %}
+                <a href="{{ user_account_link }}">{{ account_text }}</a>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

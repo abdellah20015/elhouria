@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Template pour le paragraphe Service Link.
+ */
+#}
+
+<div class="itemLinksServices">
+	{% if content.field_link_url %}
+		<a href="{{ content.field_link_url.0['#url'] }}">
+			{% if content.field_image_service %}
+				{{ content.field_image_service }}
+			{% endif %}
+			{% if content.field_titre %}
+				<p>{{ content.field_titre.0['#context'].value|nl2br|raw }}</p>
+			{% endif %}
+		</a>
+	{% endif %}
+</div>

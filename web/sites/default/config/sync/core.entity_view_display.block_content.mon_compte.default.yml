@@ -1,0 +1,28 @@
+uuid: 4b5f8f87-9828-45ce-9589-c08f0b804eb1
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.mon_compte
+    - field.field.block_content.mon_compte.field_lien_compte
+  module:
+    - link
+id: block_content.mon_compte.default
+targetEntityType: block_content
+bundle: mon_compte
+mode: default
+content:
+  field_lien_compte:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

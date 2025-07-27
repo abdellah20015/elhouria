@@ -1,0 +1,24 @@
+elhouria_contact.login:
+  path: '/user/login'
+  defaults:
+    _form: '\Drupal\elhouria_contact\Form\LoginForm'
+    _title: 'Mon compte'
+  requirements:
+    _access: 'TRUE'
+
+elhouria_contact.logout:
+  path: '/user/logout'
+  defaults:
+    _controller: '\Drupal\elhouria_contact\Controller\LoginController::logout'
+    _title: 'Déconnexion'
+  requirements:
+    _permission: 'access content'
+
+
+elhouria_contact.devis_submit:
+  path: '/devis-submit'
+  defaults:
+    _controller: '\Drupal\elhouria_contact\Controller\DevisController::submit'
+  requirements:
+    _access: 'TRUE'
+  methods: [POST]

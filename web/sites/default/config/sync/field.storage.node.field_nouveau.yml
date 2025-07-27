@@ -1,0 +1,18 @@
+uuid: 38352c6c-dfcd-42ce-8dbf-39ac92272b6e
+langcode: fr
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_nouveau
+field_name: field_nouveau
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

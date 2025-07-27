@@ -1,0 +1,38 @@
+<div class="slider">
+  <div class="contentSlider">
+    <div class="items" id="vehicule-slider">
+      {% for row in rows %}
+        <div class="item">
+          <div class="contentItem">
+            <img class="diskTop" src="{{ row['#image'] }}" alt="{{ row['#title'] }}">
+            <img class="imgMobile" src="{{ row['#image'] }}" alt="{{ row['#title'] }}">
+            <div class="infosSlider">
+              <span class="new">{{ row['#nouveau'] }}</span>
+              <p>
+                {{ row['#title'] }}
+                {% if row['#marque_logo'] %}
+                  <img src="{{ row['#marque_logo'] }}" alt="{{ row['#title'] }}">
+                {% endif %}
+              </p>
+              {% if row['#services'] %}
+                {{ row['#services']|raw }}
+              {% else %}
+                <ul></ul>
+              {% endif %}
+              <div class="prixOffre">
+                <p>à partir de</p>
+                <div class="prix">
+                  <span>{{ row['#prix'] }}</span>
+                  <span class="mdh">Dhs <br>TTC/mois</span>
+                </div>
+              </div>
+              <div class="slider-progress">
+                <div class="progress"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

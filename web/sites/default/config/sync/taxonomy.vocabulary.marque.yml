@@ -1,0 +1,9 @@
+uuid: eb912ad6-f2ff-46b2-8a01-41e9b5d81f39
+langcode: fr
+status: true
+dependencies: {  }
+name: Marque
+vid: marque
+description: 'Marques de véhicules'
+weight: 0
+new_revision: false

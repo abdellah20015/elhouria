@@ -1,0 +1,62 @@
+{% if page.header %}
+  {{ page.header }}
+{% endif %}
+
+<div class="container">
+  <div class="row">
+    <div class="compteInformations">
+      <div class="menuInformation">
+        <ul>
+          {% for item in user_menu_items %}
+            <li>
+              <a class="{{ item.class }}{% if item.active %} active{% endif %}" href="{{ item.url }}" title="">{{ item.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="contentInformation">
+        <h2 class="titleDocument">{{ current_tab_title }}</h2>
+        <div class="filtreDocument">
+          <form method="get" action="/user/documents">
+            <div class="boxForm">
+              <div class="colForm">
+                <select class="formSelect" name="category" onchange="this.form.submit()">
+                  <option value="">Toutes les catégories</option>
+                  {% for category in categories %}
+                    <option value="{{ category.tid }}" {% if selected_category == category.tid %}selected{% endif %}>{{ category.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="itemsDocuments">
+          {% if documents|length > 0 %}
+            {% for doc in documents %}
+              <div class="itemDocument">
+                <p>{{ doc.description }}</p>
+                <span>{{ doc.category }} - Fichier .{{ doc.type }} - {{ doc.size }}</span>
+                <a href="{{ doc.url }}" title="Télécharger">TÉLÉCHARGER</a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="no-documents">
+              {% if selected_category %}
+                <p>Aucun document trouvé pour cette catégorie.</p>
+                <a href="/user/documents" class="btn-reset-filter">Voir tous les documents</a>
+              {% else %}
+                <p>Aucun document disponible pour le moment.</p>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if page.footer %}
+  <footer class="footer">
+    {{ page.footer }}
+  </footer>
+{% endif %}

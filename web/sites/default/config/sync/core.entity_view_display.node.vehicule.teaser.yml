@@ -1,0 +1,31 @@
+uuid: 1088705c-316a-4ba7-bb0d-ec7ef504edea
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vehicule.field_image_vehicule
+    - field.field.node.vehicule.field_marque
+    - field.field.node.vehicule.field_nouveau
+    - field.field.node.vehicule.field_prix_mensuel
+    - field.field.node.vehicule.field_services_inclus
+    - node.type.vehicule
+  module:
+    - user
+id: node.vehicule.teaser
+targetEntityType: node
+bundle: vehicule
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_image_vehicule: true
+  field_marque: true
+  field_nouveau: true
+  field_prix_mensuel: true
+  field_services_inclus: true
+  langcode: true

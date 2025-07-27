@@ -1,0 +1,128 @@
+{% if page.header %}
+  {{ page.header }}
+{% endif %}
+
+<div class="container">
+  <div class="row">
+    <div class="compteInformations">
+      <div class="menuInformation">
+        <ul>
+          {% for item in user_menu_items %}
+            <li>
+              <a class="{{ item.class }}{% if item.active %} active{% endif %}" href="{{ item.url }}" title="">{{ item.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="contentInformation">
+        <h2>{{ current_tab_title }}</h2>
+        <div class="debug-info">
+          <p>Nombre de véhicules : {{ vehicles|length }}</p>
+        </div>
+        <div class="infosVehicules" style="display: block !important;">
+          {% if vehicles|length > 0 %}
+            {% for vehicle in vehicles %}
+              <div class="itemOffreVehicule">
+                <div class="visuOffreVehicule">
+                  <img src="{{ vehicle.image|default('/sites/default/files/placeholder.png') }}" alt="{{ vehicle.image_alt }}">
+                </div>
+                <div class="versionMarque">
+                  <p>{{ vehicle.title }}</p>
+                </div>
+                <div class="infosVehicule">
+                  <ul>
+                    <li>Boite de vitesse : <span>{{ vehicle.boite_vitesse|default('Non spécifié') }}</span></li>
+                    <li>Motorisation : <span>{{ vehicle.carburant|default('Non spécifié') }}</span></li>
+                    <li>Motricité : <span>{{ vehicle.motricite|default('Non spécifié') }}</span></li>
+                    <li>Puissance : <span>{{ vehicle.puissance|default('Non spécifié') }}</span></li>
+                  </ul>
+                  <a class="plus-detail" href="#plus-detail-{{ vehicle.node_id }}" title="">+ Voir le détail</a>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>Aucun véhicule disponible pour le moment.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if vehicles|length > 0 %}
+    {% for vehicle in vehicles %}
+      <div class="zoom-anim-dialog mfp-hide inner-popup" id="plus-detail-{{ vehicle.node_id }}">
+        <div class="headDetail">
+          <div class="visuOffreVehicule">
+            <img src="{{ vehicle.image|default('/sites/default/files/placeholder.png') }}" alt="{{ vehicle.image_alt }}">
+          </div>
+          <div class="marqueHeade">
+            <img src="{{ vehicle.marque_logo|default('/sites/default/files/logo-placeholder.png') }}" alt="{{ vehicle.marque_logo_alt }}">
+          </div>
+          <div class="titleHead">
+            <h2>{{ vehicle.title }}</h2>
+            <p>{{ vehicle.type_vehicule|default('Non spécifié') }}</p>
+          </div>
+        </div>
+        <div class="infosMotor">
+          <div class="boxInfoMotos">
+            <div class="colInfosMotor">
+              <p>Boite de vitesse</p><span>{{ vehicle.boite_vitesse|default('Non spécifié') }}</span>
+            </div>
+            <div class="colInfosMotor">
+              <p>Motricité</p><span>{{ vehicle.motricite|default('Non spécifié') }}</span>
+            </div>
+            <div class="colInfosMotor">
+              <p>Motorisation</p><span>{{ vehicle.carburant|default('Non spécifié') }}</span>
+            </div>
+            <div class="colInfosMotor">
+              <p>Puissance</p><span>{{ vehicle.puissance|default('Non spécifié') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="infosTechniqueVehicule">
+          <div class="tabsInfoTech">
+            <div class="boxRub">
+              {% for tab in vehicle.caracteristiques_tabs %}
+                <a class="rubTech{% if loop.first %} active{% endif %}" href="#boxinfos-{{ vehicle.node_id }}-{{ loop.index }}">{{ tab.label }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="wrraperTech">
+            {% for tab in vehicle.caracteristiques_tabs %}
+              <div class="boxInfos" id="boxinfos-{{ vehicle.node_id }}-{{ loop.index }}">
+                <div class="boxInfosTech">
+                  {% for item in tab.items %}
+                    <div class="colInfosTech">
+                      <p>{{ item.label }}</p><span>{{ item.valeur|default('Non spécifié') }}</span>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="innerDocuments">
+          <h2>Documents disponibles POUR CE VÉHICULE</h2>
+          <div class="itemsDocuments">
+            {% if vehicle.documents|length > 0 %}
+              {% for doc in vehicle.documents %}
+                <div class="itemDocument">
+                  <p>{{ doc.description }}</p>
+                  <span>{{ doc.category }} - Fichier .{{ doc.type }} - {{ doc.size }}</span>
+                  <a href="{{ doc.url }}" title="Télécharger">TÉLÉCHARGER</a>
+                </div>
+              {% endfor %}
+            {% else %}
+              <p>Aucun document disponible pour ce véhicule.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+{% if page.footer %}
+  <footer class="footer">
+    {{ page.footer }}
+  </footer>
+{% endif %}

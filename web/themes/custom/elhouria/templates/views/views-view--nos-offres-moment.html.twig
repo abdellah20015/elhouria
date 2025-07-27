@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Template pour la vue "Nos offres du moment"
+ */
+#}
+<div class="offresMoment">
+  <h2><span>{{ view.getTitle() }}</span></h2>
+  <p class="visibleMobile">{{ client_types_text }}</p>
+  <div class="container">
+    <div class="row">
+      {% for row in rows %}
+        <div class="itemOffre col-6 col-md-3">
+          <a href="{{ path('entity.node.canonical', {'node': row['#node'].id}) }}">
+            <div class="visuOffre">
+              {% if row['#marque_logo'] %}
+                <img class="iconMarque" src="{{ row['#marque_logo'] }}" alt="Logo {{ row['#node'].field_marque.entity.name.value }}">
+              {% endif %}
+              {% if row['#image'] %}
+                <img src="{{ row['#image'] }}" alt="{{ row['#title'] }}">
+              {% endif %}
+            </div>
+            <p>
+              <span class="typeVehicule">{{ row['#title'] }}</span>
+              à partir de
+              <span class="prix">{{ row['#prix'] }} DH TTC</span>
+            </p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

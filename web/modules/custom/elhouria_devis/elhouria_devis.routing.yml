@@ -1,0 +1,31 @@
+elhouria_devis.submit:
+  path: '/devis/submit'
+  defaults:
+    _controller: '\Drupal\elhouria_devis\Controller\DevisController::submit'
+    _title: 'Soumettre une demande de devis'
+  requirements:
+    _permission: 'access content'
+
+elhouria_devis.user_submit:
+  path: '/user/submit'
+  defaults:
+    _controller: '\Drupal\elhouria_devis\Controller\UserController::submit'
+    _title: 'Soumettre les informations utilisateur'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+elhouria_devis.user_vehicles:
+  path: '/user/vehicules'
+  defaults:
+    _controller: '\Drupal\elhouria_devis\Controller\UserController::vehicles'
+    _title: 'Mes véhicules'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+elhouria_devis.user_documents:
+  path: '/user/documents'
+  defaults:
+    _controller: '\Drupal\elhouria_devis\Controller\UserController::documents'
+    _title: 'Mes documents'
+  requirements:
+    _user_is_logged_in: 'TRUE'

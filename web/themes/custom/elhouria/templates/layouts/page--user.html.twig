@@ -1,0 +1,141 @@
+{% if page.header %}
+  {{ page.header }}
+{% endif %}
+
+<div class="container">
+  <div class="row">
+    <div class="compteInformations">
+      <div class="menuInformation">
+        <ul>
+          {% for item in user_menu_items %}
+            <li>
+              <a class="{{ item.class }}{% if item.active %} active{% endif %}" href="{{ item.url }}" title="">{{ item.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="contentInformation">
+        <h2>{{ current_tab_title }}</h2>
+        {% if current_tab == 'informations' %}
+          <form action="" id="user-info-form">
+            <div class="formInfosCompte form">
+              <div class="colFormInfos">
+                <label for="nom">Nom<span>*</span></label>
+                <input type="text" name="nom" id="nom" value="{{ user_data.nom }}">
+              </div>
+              <div class="colFormInfos">
+                <label for="prenom">Prénom<span>*</span></label>
+                <input type="text" name="prenom" id="prenom" value="{{ user_data.prenom }}">
+              </div>
+              <div class="colFormInfos">
+                <label for="email">Email<span>*</span></label>
+                <input type="text" name="email" id="email" value="{{ user_data.email }}">
+              </div>
+              <div class="colFormInfos">
+                <label for="telephone">Téléphone<span>*</span></label>
+                <input type="text" name="telephone" id="telephone" value="{{ user_data.telephone }}">
+              </div>
+            </div>
+          </form>
+          <a href="javascript:void(0);" id="submit-btn">Modifier mes informations</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if page.footer %}
+  <footer class="footer">
+    {{ page.footer }}
+  </footer>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const submitBtn = document.getElementById('submit-btn');
+  const form = document.getElementById('user-info-form');
+
+  if (submitBtn && form) {
+    submitBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const nom = document.getElementById('nom').value.trim();
+      const prenom = document.getElementById('prenom').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telephone = document.getElementById('telephone').value.trim();
+
+      if (!nom || !prenom || !email || !telephone) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Tous les champs obligatoires doivent être remplis.',
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Email invalide',
+          text: 'L\'adresse email n\'est pas valide.',
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+
+      Swal.fire({
+        title: 'Modification en cours...',
+        text: 'Veuillez patienter pendant la mise à jour de vos informations.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      const formData = new FormData();
+      formData.append('nom', nom);
+      formData.append('prenom', prenom);
+      formData.append('email', email);
+      formData.append('telephone', telephone);
+
+      fetch('/user/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json().catch(() => ({ success: true }));
+        } else {
+          return response.json().then(data => Promise.reject(data));
+        }
+      })
+      .then(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès !',
+          text: 'Vos informations ont été mises à jour avec succès.',
+          confirmButtonColor: '#28a745',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          window.location.reload();
+        });
+      })
+      .catch(error => {
+        console.error('Erreur:', error);
+        const errorMessage = error.error || 'Une erreur s\'est produite. Veuillez réessayer.';
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: errorMessage,
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'OK'
+        });
+      });
+    });
+  }
+});
+</script>

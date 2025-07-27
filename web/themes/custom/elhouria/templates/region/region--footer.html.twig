@@ -1,0 +1,83 @@
+<footer class="footer">
+  <div class="prefooter">
+    <div class="container">
+      <div class="row">
+        <div class="subFooter">
+          <div class="coord">
+            <img class="logoCoord" src="{{coord_logo_url}}" alt="">
+            {{ contact_menu }}
+          </div>
+
+          <div class="menuFooter">
+            {{ main_menu }}
+          </div>
+
+          <div class="servicesLinks">
+            {{ mobile_menu }}
+            {{ espace_client|raw }}
+          </div>
+
+          <div class="newslettre">
+            <p>Inscription à la newsletter</p>
+            {{ newsletter_form|raw }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c-right">
+    <div class="container">
+      <div class="row">
+        <div class="copyRight">
+          <div class="dateRealisation">
+            <p>{{ current_year }} © {{ site_name }}. Tous droits réservés</p>
+          </div>
+          <div class="realisationBy"></div>
+          <p>
+            <span>{{ realization_text }}</span>
+            <a href="{{ realization_link }}">
+              <img src="{{ realization_logo }}" alt="">
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="innerFooter">
+    <div class="container">
+      <div class="row">
+        <div class="contentFooter">
+          <div class="logoFooter">
+            <a href="">
+              <img src="{{ inner_footer_logo_url }}" alt="">
+            </a>
+          </div>
+
+          <div class="assitance">
+            <img class="iconAssistance" src="{{ logo_assistance }}" alt="">
+            <span>{{ assistance_text }}</span>
+            <img class="numAssistance" src="{{ assistance_phone_image }}" alt="">
+          </div>
+
+          <div class="links-rsc">
+            <span>{{ social_text }}</span>
+            {% for social_link in social_links %}
+              <a href="{{ social_link.url }}" title="{{ social_link.title }}">
+                <img src="{{ social_link.icon }}" alt="">
+              </a>
+            {% endfor %}
+          </div>
+
+          <div class="watsup">
+            <span>{{ whatsapp_text|raw }}</span>
+            <a href="{{ whatsapp_link }}">
+              <img src="{{ whatsapp_image }}" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

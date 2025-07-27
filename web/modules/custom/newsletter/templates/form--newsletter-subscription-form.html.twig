@@ -1,0 +1,13 @@
+<form{{ attributes }}>
+  {{ form.form_build_id }}
+  {{ form.form_token }}
+  {{ form.form_id }}
+
+  <input type="email"
+         name="email"
+         placeholder="Votre email"
+         required="required"
+         value="">
+  <input type="submit" value="">
+  {{ form.message }}
+</form>

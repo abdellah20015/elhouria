@@ -1,0 +1,172 @@
+{#
+/**
+ * @file
+ * Template for the Catalogue des véhicules view.
+ */
+#}
+<main id="main" role="main">
+  <div class="introPage">
+    <div class="container">
+      <div class="row">
+        <h1>{{ view.getTitle() }}</h1>
+        <p>{{ client_types_text }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="offresMoment">
+    <div class="container">
+      <div class="row">
+        {% for row in rows %}
+          <div class="itemOffre col-6 col-md-3">
+            <a class="plus-detail" href="#plus-detail-{{ row.node_id }}" data-node-id="{{ row.node_id }}">
+              <div class="visuOffre">
+                <img class="iconMarque" src="{{ row.marque_logo }}" alt="{{ row.marque_logo_alt|default('') }}">
+                <img src="{{ row.image }}" alt="{{ row.image_alt|default('') }}">
+              </div>
+              <p>
+                <span class="typeVehicule">{{ row.title }}</span>
+                à partir de
+                <span class="prix">{{ row.prix }} DH TTC</span>
+              </p>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% for row in rows %}
+      <div class="zoom-anim-dialog mfp-hide inner-popup" id="plus-detail-{{ row.node_id }}">
+        <div class="headDetail">
+          <div class="prixHead">
+            <span>à partir de</span>
+            <p>{{ row.prix }}</p>
+            <span>Dhs ttc/mois</span>
+          </div>
+          <div class="marqueHeade">
+            <img src="{{ row.marque_logo }}" alt="{{ row.marque_logo_alt|default('') }}">
+          </div>
+          <div class="titleHead">
+            <h2>{{ row.title }}</h2>
+            <p>{{ row.type_vehicule }}</p>
+          </div>
+        </div>
+        <div class="slideVehicule">
+          <div class="listVehicule">
+            {% for image in row.images %}
+              <div class="itemVehicule">
+                <img src="{{ image.url }}" alt="{{ image.alt|default('') }}">
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="infosMotor">
+          <div class="boxInfoMotos">
+            <div class="colInfosMotor">
+              <p>Boite de vitesse</p>
+              <span>{{ row.boite_vitesse }}</span>
+            </div>
+            <div class="colInfosMotor">
+              <p>Motricité</p>
+              <span>{{ row.motricite }}</span>
+            </div>
+            <div class="colInfosMotor">
+              <p>Motorisation</p>
+              <span>{{ row.carburant }}</span>
+            </div>
+            <div class="colInfosMotor">
+              <p>Puissance</p>
+              <span>{{ row.puissance }} CV</span>
+            </div>
+            <a class="linkDemandeDevis demande-devis" href="#demande-devis">demander un devis</a>
+          </div>
+        </div>
+        <div class="infosTechniqueVehicule">
+          <div class="tabsInfoTech">
+            <div class="boxRub">
+              {% for tab in row.caracteristiques_tabs %}
+                <a class="rubTech{% if loop.first %} active{% endif %}" href="#boxinfos-{{ row.node_id }}-{{ loop.index }}">{{ tab.label }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="wrraperTech">
+            {% for tab in row.caracteristiques_tabs %}
+              <div class="boxInfos" id="boxinfos-{{ row.node_id }}-{{ loop.index }}">
+                <div class="boxInfosTech">
+                  {% for char in tab.items %}
+                    <div class="colInfosTech">
+                      <p>{{ char.label }}</p>
+                      <span>{{ char.valeur }}</span>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="formContact formDevis">
+          <div class="titleForm">
+            <h2>Demander un devis pour ce véhicule</h2>
+            <p>Devis gratuit et sans engagement</p>
+          </div>
+          <div class="introForm">
+            <p>La mensualité du véhicule souhaité n’est pas disponible en ligne.</p>
+            <p>Merci de compléter le formulaire, nous vous transmettrons notre offre dans les plus brefs délais.</p>
+          </div>
+          <form action="{{ form_action }}" method="post">
+            <div class="colForm">
+              <label for="nom-{{ row.node_id }}">Nom<span>*</span></label>
+              <input type="text" name="nom" id="nom-{{ row.node_id }}" required>
+            </div>
+            <div class="colForm">
+              <label for="prenom-{{ row.node_id }}">Prénom<span>*</span></label>
+              <input type="text" name="prenom" id="prenom-{{ row.node_id }}" required>
+            </div>
+            <div class="colForm">
+              <label for="email-{{ row.node_id }}">email<span>*</span></label>
+              <input type="email" name="email" id="email-{{ row.node_id }}" required>
+            </div>
+            <div class="colForm">
+              <label for="societe-{{ row.node_id }}">Société</label>
+              <input type="text" name="societe" id="societe-{{ row.node_id }}">
+            </div>
+            <div class="colForm">
+              <label for="formule-{{ row.node_id }}">formule<span>*</span></label>
+              <select class="formSelect" name="formule" id="formule-{{ row.node_id }}" required>
+                <option value="">-</option>
+                {% for option in formule_options %}
+                  <option value="{{ option.tid }}">{{ option.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="colForm">
+              <label for="modele-{{ row.node_id }}">Modèle<span>*</span></label>
+              <select class="formSelect" name="modele" id="modele-{{ row.node_id }}" required>
+                <option value="">-</option>
+                {% for option in modele_options %}
+                  <option value="{{ option.tid }}" {% if option.tid == row.modele.tid %}selected{% endif %}>{{ option.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="colForm">
+              <label for="version-{{ row.node_id }}">version<span>*</span></label>
+              <select class="formSelect" name="version" id="version-{{ row.node_id }}" required>
+                <option value="">-</option>
+                {% for option in version_options %}
+                  <option value="{{ option.tid }}">{{ option.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="colForm2">
+              <label for="commentaire-{{ row.node_id }}">commentaire</label>
+              <textarea name="commentaire" id="commentaire-{{ row.node_id }}"></textarea>
+            </div>
+            <input type="hidden" name="vehicle_id" value="{{ row.node_id }}">
+            <input type="hidden" name="form_id" value="devis_form">
+            <div class="rowAction">
+              <input type="submit" value="Envoyer ma demande">
+            </div>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</main>

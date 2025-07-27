@@ -1,0 +1,21 @@
+uuid: df697537-00aa-4a6e-9f59-010467e93723
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nouveau
+    - node.type.vehicule
+id: node.vehicule.field_nouveau
+field_name: field_nouveau
+entity_type: node
+bundle: vehicule
+label: 'Nouveau véhicule'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: nouveau
+  off_label: '``'
+field_type: boolean

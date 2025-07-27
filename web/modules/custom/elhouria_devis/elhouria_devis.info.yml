@@ -1,0 +1,10 @@
+name: El Hourria Devis
+type: module
+description: Gère le formulaire de demande de devis pour le catalogue des véhicules.
+core_version_requirement: ^10 || ^12
+package: Custom
+dependencies:
+  - drupal:node
+  - drupal:paragraphs
+  - drupal:taxonomy
+  - drupal:user

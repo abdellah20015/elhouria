@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Template spécifique pour la page de contact.
+ * Affiche seulement header + contenu de contact + footer
+ */
+#}
+
+{% if page.header %}
+  {{ page.header }}
+{% endif %}
+
+<div class="introPage">
+  <div class="container">
+    <div class="row">
+      <h1>Contactez-nous</h1>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="contact">
+        <div class="infosContact">
+          {% set contact_info = get_contact_menu() %}
+          {% if contact_info %}
+            {% for info in contact_info %}
+              <p>{{ info }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="contentForm">
+          <h2>Formulaire de contact</h2>
+          {{ form }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if page.footer %}
+  {{ page.footer }}
+{% endif %}

@@ -1,0 +1,8 @@
+uuid: 632672f4-9d29-45cf-a743-5e16566450c9
+langcode: fr
+status: true
+dependencies: {  }
+id: mon_compte
+label: 'Mon compte'
+revision: false
+description: null

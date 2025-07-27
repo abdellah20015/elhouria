@@ -1,0 +1,5 @@
+name: El Hourria Contact
+type: module
+description: Module de contact pour El Hourria avec formulaire dynamique
+core_version_requirement: ^10 || ^12
+package: El Hourria

@@ -1,0 +1,71 @@
+uuid: 0f8750cc-daa9-4f4a-8678-3f484fd4cc34
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.node.vehicule.field_image_vehicule
+    - field.field.node.vehicule.field_marque
+    - field.field.node.vehicule.field_nouveau
+    - field.field.node.vehicule.field_prix_mensuel
+    - field.field.node.vehicule.field_services_inclus
+    - node.type.vehicule
+  module:
+    - text
+    - user
+id: node.vehicule.default
+targetEntityType: node
+bundle: vehicule
+mode: default
+content:
+  field_image_vehicule:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_marque:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_nouveau:
+    type: boolean
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_prix_mensuel:
+    type: number_decimal
+    label: hidden
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_services_inclus:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

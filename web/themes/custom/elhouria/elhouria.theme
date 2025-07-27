@@ -1,0 +1,44 @@
+<?php
+
+use Drupal\elhouria\Utilities\PathHelper;
+use Drupal\elhouria\Services\ViewProcessor;
+use Drupal\elhouria\Services\RegionProcessor;
+use Drupal\elhouria\Services\NodeProcessor;
+use Drupal\elhouria\Services\BlockProcessor;
+use Drupal\elhouria\Services\FormProcessor;
+use Drupal\elhouria\Services\UserPageProcessor;
+
+/**
+ * Préprocesseur pour les pages.
+ */
+function elhouria_preprocess_page(array &$variables) {
+  PathHelper::setThemePath($variables);
+  NodeProcessor::processAboutPage($variables);
+  BlockProcessor::processFaqBlock($variables);
+  FormProcessor::processPageForms($variables);
+  UserPageProcessor::process($variables);
+}
+
+/**
+ * Préprocesseur pour les vues.
+ */
+function elhouria_preprocess_views_view(&$variables) {
+  ViewProcessor::process($variables);
+}
+
+/**
+ * Préprocesseur pour les régions.
+ */
+function elhouria_preprocess_region(&$variables) {
+  RegionProcessor::process($variables);
+  FormProcessor::processHeaderAuthentication($variables);
+}
+
+/**
+ * Préprocesseur pour les nœuds.
+ */
+function elhouria_preprocess_node(&$variables) {
+  if ($variables['node']->bundle() === 'vehicule') {
+    ViewProcessor::processNode($variables);
+  }
+}

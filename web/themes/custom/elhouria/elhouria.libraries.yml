@@ -1,0 +1,21 @@
+global-styling:
+  version: 1.x
+  css:
+    theme:
+      css/vendor/magnific-popup.css: {}
+      css/local/styles.css: {}
+      css/local/ckeditor.css: {}
+      css/local/modules/slick.css: {}
+      css/local/bootstrap/bootstrap-grid.css: {}
+      css/local/bootstrap/bootstrap-reboot.css: {}
+      css/local/bootstrap/bootstrap.css: {}
+  js:
+    js/jquery-3.4.1.min.js: {}
+    js/jquery.scripts.min.js: {}
+    js/vendors.js: {}
+    js/vendors.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+    - core/jquery.once

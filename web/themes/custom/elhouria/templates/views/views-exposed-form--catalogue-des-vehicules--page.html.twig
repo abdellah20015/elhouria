@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Template for the exposed form of the Catalogue des véhicules view.
+ */
+#}
+<div class="filtreCatalogue">
+  <form action="/catalogue" method="get" id="views-exposed-form-catalogue-des-vehicules-page-1" accept-charset="UTF-8" class="views-exposed-form">
+    <a class="filtreBtn" href="#" title="">Affinez votre recherche</a>
+    <div class="boxForm">
+      <div class="colForm">
+        <select class="formSelect" name="field_type_vehicule_target_id" id="edit-field-type-vehicule-target-id--2">
+          <option value="All" {% if form.field_type_vehicule_target_id['#default_value'] == 'All' %}selected="selected"{% endif %}>par type de véhicule</option>
+          {% for key, option in form.field_type_vehicule_target_id['#options'] %}
+            {% if key != 'All' %}
+              <option value="{{ key }}" {% if form.field_type_vehicule_target_id['#default_value'] == key %}selected="selected"{% endif %}>{{ option }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+      <div class="colForm">
+        <select class="formSelect" name="field_marque_target_id" id="edit-field-marque-target-id--2">
+          <option value="All" {% if form.field_marque_target_id['#default_value'] == 'All' %}selected="selected"{% endif %}>marque</option>
+          {% for key, option in form.field_marque_target_id['#options'] %}
+            {% if key != 'All' %}
+              <option value="{{ key }}" {% if form.field_marque_target_id['#default_value'] == key %}selected="selected"{% endif %} data-icon="{{ icon_urls[key]|default('') }}">{{ option }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+      <div class="colForm">
+        <select class="formSelect" name="field_modele_target_id" id="edit-field-modele-target-id--2">
+          <option value="All" {% if form.field_modele_target_id['#default_value'] == 'All' %}selected="selected"{% endif %}>modèle</option>
+          {% for key, option in form.field_modele_target_id['#options'] %}
+            {% if key != 'All' %}
+              <option value="{{ key }}" {% if form.field_modele_target_id['#default_value'] == key %}selected="selected"{% endif %}>{{ option }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+      <div class="colForm">
+        <input type="submit" value="lancer la recherche" id="edit-submit-catalogue-des-vehicules--2" class="button js-form-submit form-submit">
+      </div>
+    </div>
+    {{ form|without('field_type_vehicule_target_id', 'field_marque_target_id', 'field_modele_target_id', 'actions') }}
+  </form>
+</div>

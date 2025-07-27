@@ -1,0 +1,20 @@
+uuid: 741c439d-a824-4b28-b7a8-a5f25538e330
+langcode: fr
+status: true
+dependencies:
+  module:
+    - media
+    - taxonomy
+id: taxonomy_term.field_logo_marque
+field_name: field_logo_marque
+entity_type: taxonomy_term
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Template spécifique pour la page de connexion.
+ * Affiche seulement header + contenu de connexion + footer
+ */
+#}
+
+{% if page.header %}
+  {{ page.header }}
+{% endif %}
+<main id="main" role="main">
+  <div class="introPageIntern">
+    <div class="container">
+      <div class="row">
+        <h1>Mon compte</h1>
+      </div>
+    </div>
+  </div>
+  <div class="inner-connection form">
+    <h2>Connexion à votre compte</h2>
+    {{ form }}
+  </div>
+</main>
+{% if page.footer %}
+  {{ page.footer }}
+{% endif %}

@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * El Hourria's theme implementation to display the catalogue page.
+ */
+#}
+{% set classes = [
+  'block',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+  'main-header'
+] %}
+
+{% if page.header %}
+  {{ page.header }}
+{% endif %}
+
+{% if page.content %}
+  {{ page.content }}
+{% endif %}
+
+{% if page.bottom_content %}
+  {{ page.bottom_content }}
+{% endif %}
+
+{% if page.footer %}
+  {{ page.footer }}
+{% endif %}

@@ -1,0 +1,20 @@
+uuid: 8b78d63a-9f7c-4532-be5b-bbe7d0a41c8b
+langcode: fr
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_marque
+field_name: field_marque
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

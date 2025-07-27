@@ -1,0 +1,32 @@
+uuid: 8fd79043-7cb4-4cbb-8c8a-18c2e14fc2db
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.marque.field_logo_marque
+    - taxonomy.vocabulary.marque
+  module:
+    - text
+id: taxonomy_term.marque.default
+targetEntityType: taxonomy_term
+bundle: marque
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_logo_marque:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true

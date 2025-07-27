@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Template pour le block de recherche de véhicules
+ */
+#}
+<div class="recherche">
+  <h3>{{ view.getTitle() }}</h3>
+  <div class="contentRecherche">
+    {{ exposed }}
+  </div>
+  <div class="engagement">
+    {% for service in services %}
+      {{ service }}
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,6 @@
+services:
+  elhouria_contact.twig_extension:
+    class: Drupal\elhouria_contact\TwigExtension\ContactTwigExtension
+    arguments: ['@menu.link_tree']
+    tags:
+      - { name: twig.extension }

@@ -1,0 +1,11 @@
+uuid: d0473121-3c19-495c-8928-2083850f2399
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.marque
+id: taxonomy_term.marque
+target_entity_type_id: taxonomy_term
+target_bundle: marque
+default_langcode: site_default
+language_alterable: false

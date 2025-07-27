@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Template spécifique pour la page FAQ.
+ */
+#}
+
+{# Forcer le titre de la page #}
+{% set page_title = 'FAQ' %}
+
+{# Header #}
+{% if page.header %}
+  {{ page.header }}
+{% endif %}
+
+{# Contenu principal - FAQ #}
+<div class="main-content">
+  <div class="introPageIntern">
+    <div class="container">
+      <div class="row">
+        <h1>{{ faq_block_title|default('FAQ') }}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner-foire">
+    <div class="container">
+      <div class="row">
+        {% if faqs and faqs|length > 0 %}
+          {% for faq in faqs %}
+            <div class="question">
+              <h2>{{ faq.question }}</h2>
+              <div class="reponse">
+                <p>{{ faq.reponse|nl2br }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="no-faq">
+            <p>Aucune question fréquente disponible pour le moment.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Bottom Content #}
+{% if page.bottom_content %}
+  {{ page.bottom_content }}
+{% endif %}
+
+{# Footer #}
+{% if page.footer %}
+  {{ page.footer }}
+{% endif %}
+
+{# JavaScript pour changer le titre de la page #}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.title = 'FAQ - {{ site_name|default('Elhouria') }}';
+});
+</script>
