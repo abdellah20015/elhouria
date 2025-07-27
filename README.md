@@ -17,7 +17,7 @@ Un site des véhicules pour différent type de client développé avec Drupal 10
 ```
 /
 ├── web/                          # Racine web Drupal
-│   ├── themes/custom/pettys_theme/  # Thème personnalisé
+│   ├── themes/custom/elhouria_theme/  # Thème personnalisé
 │   ├── modules/custom/             # Modules personnalisés
 │   └── sites/default/             # Configuration site
 ├── vendor/                       # Dépendances Composer
@@ -49,7 +49,7 @@ Le thème elhouria Theme inclut les régions suivantes :
 1. **Cloner le repository**
    ```bash
    git clone https://github.com/votre-username/elhouria.git
-   cd pettys-drupal
+   cd elhouria-drupal
    ```
 
 2. **Installer les dépendances**
@@ -98,9 +98,9 @@ chmod 755 web/sites/default/files
 
 ### Structure du thème personnalisé
 ```
-web/themes/custom/pettys_theme/
-├── pettys_theme.info.yml          # Configuration du thème
-├── pettys_theme.libraries.yml     # Bibliothèques CSS/JS
+web/themes/custom/elhouria_theme/
+├── elhouria_theme.info.yml          # Configuration du thème
+├── elhouria_theme.libraries.yml     # Bibliothèques CSS/JS
 ├── templates/                     # Templates Twig
 ├── css/                          # Fichiers CSS
 ├── js/                           # Fichiers JavaScript
